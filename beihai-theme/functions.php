@@ -7,7 +7,7 @@
 
 // 定义主题版本
 if (!defined('BEIHAI_THEME_VERSION')) {
-    define('BEIHAI_THEME_VERSION', '1.2.0');
+    define('BEIHAI_THEME_VERSION', '1.4.0');
 }
 
 // 加载模板标签文件
@@ -49,8 +49,9 @@ function beihai_theme_setup()
 
     // 注册导航菜单
     register_nav_menus(array(
-        'primary' => __('主导航菜单', 'beihai-blog'),
-        'footer'  => __('页脚菜单', 'beihai-blog'),
+        'primary'        => __('主导航菜单', 'beihai-blog'),
+        'footer-archives' => __('页脚归档菜单', 'beihai-blog'),
+        'footer-links'   => __('页脚站外链接菜单', 'beihai-blog'),
     ));
 
     // 设置特色图片尺寸
@@ -59,6 +60,29 @@ function beihai_theme_setup()
     add_image_size('hero-background', 1920, 600, true);
 }
 add_action('after_setup_theme', 'beihai_theme_setup');
+
+/**
+ * 归档菜单默认回调函数
+ * 当没有设置归档菜单时显示默认的文章归档链接
+ */
+function beihai_fallback_archives_menu()
+{
+    $archives = wp_get_archives(array(
+        'type'            => 'monthly',
+        'limit'           => 6,
+        'format'          => 'html',
+        'before'          => '',
+        'after'           => '',
+        'show_post_count' => false,
+        'echo'            => 0,
+    ));
+    
+    if ($archives) {
+        echo '<ul class="footer-menu archives-menu">';
+        echo $archives;
+        echo '</ul>';
+    }
+}
 
 /**
  * 根据东八时区获取当前时间问候语
@@ -278,6 +302,82 @@ function beihai_customize_register($wp_customize)
         'section'     => 'author_section',
         'type'        => 'text',
     ));
+
+    // 页脚设置面板
+    $wp_customize->add_section('footer_section', array(
+        'title'    => __('页脚设置', 'beihai-blog'),
+        'priority' => 52,
+    ));
+
+    // 备案信息HTML内容
+    $wp_customize->add_setting('footer_icp_content', array(
+        'default'           => '',
+        'sanitize_callback' => 'wp_kses_post',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('footer_icp_content', array(
+        'label'       => __('备案信息HTML', 'beihai-blog'),
+        'description' => __('在此输入备案信息HTML代码，例如ICP备案号、公安备案号等', 'beihai-blog'),
+        'section'     => 'footer_section',
+        'type'        => 'textarea',
+    ));
+
+    // GitHub链接
+    $wp_customize->add_setting('github_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('github_url', array(
+        'label'       => __('GitHub链接', 'beihai-blog'),
+        'description' => __('输入GitHub个人主页链接', 'beihai-blog'),
+        'section'     => 'footer_section',
+        'type'        => 'url',
+    ));
+
+    // Twitter链接
+    $wp_customize->add_setting('twitter_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('twitter_url', array(
+        'label'       => __('Twitter链接', 'beihai-blog'),
+        'description' => __('输入Twitter/X个人主页链接', 'beihai-blog'),
+        'section'     => 'footer_section',
+        'type'        => 'url',
+    ));
+
+    // 微博链接
+    $wp_customize->add_setting('weibo_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('weibo_url', array(
+        'label'       => __('微博链接', 'beihai-blog'),
+        'description' => __('输入微博个人主页链接', 'beihai-blog'),
+        'section'     => 'footer_section',
+        'type'        => 'url',
+    ));
+
+    // 自定义RSS链接
+    $wp_customize->add_setting('rss_url', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('rss_url', array(
+        'label'       => __('自定义RSS链接', 'beihai-blog'),
+        'description' => __('如不填写则使用WordPress默认RSS链接', 'beihai-blog'),
+        'section'     => 'footer_section',
+        'type'        => 'url',
+    ));
 }
 add_action('customize_register', 'beihai_customize_register');
 
@@ -347,3 +447,70 @@ function beihai_body_classes($classes)
     return $classes;
 }
 add_filter('body_class', 'beihai_body_classes');
+
+/**
+ * 自定义评论输出回调函数
+ * 优化评论显示结构：日期时间以小字显示在右下角
+ */
+function beihai_comment_callback($comment, $args, $depth)
+{
+    $tag = ('div' === $args['style']) ? 'div' : 'li';
+    $comment_classes = get_comment_class('', $comment);
+    $comment_class_str = implode(' ', $comment_classes);
+    ?>
+    <<?php echo $tag; ?> id="comment-<?php comment_ID(); ?>" class="<?php echo esc_attr($comment_class_str); ?>">
+        <article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
+            <div class="comment-author-avatar">
+                <?php echo get_avatar($comment, $args['avatar_size']); ?>
+            </div>
+            <div class="comment-content-wrapper">
+                <header class="comment-meta">
+                    <div class="comment-author-info">
+                        <?php printf('<span class="comment-author-name">%s</span>', get_comment_author_link($comment)); ?>
+                        <?php if ($comment->user_id === get_the_author_meta('ID')) : ?>
+                            <span class="author-badge"><?php _e('作者', 'beihai-blog'); ?></span>
+                        <?php endif; ?>
+                    </div>
+                </header>
+                <div class="comment-content">
+                    <?php comment_text(); ?>
+                    <?php if ($comment->comment_approved == '0') : ?>
+                        <p class="comment-awaiting-moderation"><?php _e('您的评论正在等待审核。', 'beihai-blog'); ?></p>
+                    <?php endif; ?>
+                    <footer class="comment-footer-meta">
+                        <time class="comment-time" datetime="<?php comment_time('c'); ?>">
+                            <?php
+                            printf(
+                                __('%1$s %2$s', 'beihai-blog'),
+                                get_comment_date('Y年m月d日', $comment),
+                                get_comment_time('H:i', $comment)
+                            );
+                            ?>
+                        </time>
+                        <?php
+                        comment_reply_link(array_merge($args, array(
+                            'add_below' => 'div-comment',
+                            'depth'     => $depth,
+                            'max_depth' => $args['max_depth'],
+                            'before'    => '<span class="reply-btn-wrapper">',
+                            'after'     => '</span>',
+                            'reply_text' => __('回复', 'beihai-blog'),
+                        )));
+                        ?>
+                        <?php edit_comment_link(__('编辑', 'beihai-blog'), '<span class="edit-link">', '</span>'); ?>
+                    </footer>
+                </div>
+            </div>
+        </article>
+    <?php
+}
+
+/**
+ * 添加评论相关的 CSS 类
+ */
+function beihai_comment_class($classes, $class, $comment_id, $post_id)
+{
+    $classes[] = 'modern-comment';
+    return $classes;
+}
+add_filter('comment_class', 'beihai_comment_class', 10, 4);
