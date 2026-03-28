@@ -1,6 +1,7 @@
 # Beihai Blog - WordPress主题
 
 一个简约现代的浅色WordPress主题
+效果预览：www.hokkai2005.com
 
 ## 特性
 
@@ -216,7 +217,3 @@ beihai-theme/
 - 实现固定导航栏
 - 实现时间问候语横幅
 - 实现响应式设计
-
-## 许可证
-
-GNU General Public License v2 or later
