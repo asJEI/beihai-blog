@@ -1,7 +1,7 @@
 # Beihai Blog - WordPress主题
 
 一个简约现代的浅色WordPress主题
-效果预览：www.hokkai2005.com
+效果预览：http://www.hokkai2005.online
 
 ## 特性
 
