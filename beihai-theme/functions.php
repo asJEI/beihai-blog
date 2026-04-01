@@ -7,7 +7,7 @@
 
 // 定义主题版本
 if (!defined('BEIHAI_THEME_VERSION')) {
-    define('BEIHAI_THEME_VERSION', '1.4.0');
+    define('BEIHAI_THEME_VERSION', '1.4.1');
 }
 
 // 加载模板标签文件

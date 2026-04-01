@@ -4,7 +4,7 @@ Theme URI: https://beihai.com
 Author: Beihai
 Author URI: https://beihai.com
 Description: 一个简约现代的浅色WordPress主题，包含固定导航栏、搜索功能、主题切换、现代圆角评论区和带时间问候语的横幅区域。
-Version: 1.4.0
+Version: 1.4.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: beihai-blog
@@ -845,6 +845,14 @@ img {
     max-width: 1200px;
     margin: 0 auto;
     padding: 48px 24px;
+    /* 为固定导航栏留出空间（首页除外，因为首页有横幅区域已处理） */
+    padding-top: calc(var(--header-height) + 48px);
+}
+
+/* 首页不需要额外的顶部间距，因为横幅区域已有 margin-top */
+.home .site-main,
+.front-page .site-main {
+    padding-top: 48px;
 }
 
 /* 主内容区域 - 轻微磨砂玻璃效果 */
@@ -1495,6 +1503,14 @@ img {
     /* 内容区域调整 */
     .site-main {
         padding: 32px 16px;
+        /* 平板端为固定导航栏留出空间 */
+        padding-top: calc(var(--header-height) + 32px);
+    }
+
+    /* 首页不需要额外的顶部间距 */
+    .home .site-main,
+    .front-page .site-main {
+        padding-top: 32px;
     }
 
     .content-area {
@@ -1589,6 +1605,14 @@ img {
 
     .site-main {
         padding: 24px 12px;
+        /* 手机端为固定导航栏留出空间 */
+        padding-top: calc(var(--header-height) + 24px);
+    }
+
+    /* 首页不需要额外的顶部间距 */
+    .home .site-main,
+    .front-page .site-main {
+        padding-top: 24px;
     }
 
     .content-area {
@@ -2332,6 +2356,18 @@ img {
 
 /* 超小屏 - 360px以下 */
 @media (max-width: 360px) {
+    .site-main {
+        padding: 16px 10px;
+        /* 超小屏为固定导航栏留出空间 */
+        padding-top: calc(var(--header-height) + 16px);
+    }
+
+    /* 首页不需要额外的顶部间距 */
+    .home .site-main,
+    .front-page .site-main {
+        padding-top: 16px;
+    }
+
     .comment-body {
         padding: 10px;
     }
