@@ -1,7 +1,10 @@
-# Beihai Blog - WordPress主题
+# Beihai Blog - WordPress 主题
 
-一个简约现代的浅色WordPress主题
-效果预览：http://www.hokkai2005.online
+Beihai Blog 是一个简约现代的 WordPress 个人博客主题，包含固定导航栏、站内搜索、主题切换、作者信息悬浮框、时间问候语横幅和现代评论区样式。
+
+- 主题目录：`beihai-theme`
+- 当前版本：`1.4.1`
+- 效果预览：http://www.hokkai2005.online
 
 ## 特性
 
@@ -43,6 +46,10 @@
   - 700ms平滑过渡
   - 滑块立体光影变化
   - 图标淡入淡出切换
+
+## 仓库说明
+
+本仓库只包含 WordPress 主题源码，不包含完整 WordPress 站点、数据库、插件或构建系统。`beihai-theme` 目录需要保持为可直接安装的主题包。
 
 ## 安装
 
@@ -125,28 +132,41 @@
 - **自动切换**：支持跟随系统偏好自动切换
 - **记忆功能**：记住用户的选择，下次访问时自动应用
 
+## 本地开发
+
+1. 准备一个本地或远程 WordPress 环境
+2. 将 `beihai-theme` 放入 WordPress 的 `wp-content/themes/` 目录
+3. 在后台启用主题后，直接编辑主题目录中的 PHP、CSS 和 JS 文件
+4. 修改完成后在前台页面和后台自定义器中检查效果
+
+当前仓库没有 npm、Composer、Docker 或 CI 配置，因此不需要构建步骤。
+
 ## 文件结构
 
 ```
-beihai-theme/
-├── style.css              # 主题样式（响应式 + 夜间模式 + 评论区）
-├── functions.php          # 主题功能（含自定义器设置）
-├── index.php              # 首页模板
-├── header.php             # 头部模板（导航栏、搜索栏、作者悬浮框）
-├── footer.php             # 页脚模板（三栏布局：归档、备案、站外链接）
-├── single.php             # 单篇文章模板
-├── page.php               # 页面模板
-├── archive.php            # 归档/分类模板
-├── search.php             # 搜索结果模板
-├── searchform.php         # 搜索表单
-├── comments.php           # 评论模板（现代圆角风格）
-├── 404.php                # 404页面
-├── assets/
-│   └── js/
-│       └── main.js        # JavaScript交互（含搜索、作者悬浮框、主题切换）
-├── inc/
-│   └── template-tags.php  # 模板标签函数
-└── README.md              # 说明文档
+.
+├── README.md                 # 仓库说明文档
+├── LICENSE                   # GPL-2.0-or-later 许可证
+├── .gitignore                # Git 忽略规则
+└── beihai-theme/
+    ├── README.md             # 主题包说明文档
+    ├── style.css             # 主题元信息和全站样式
+    ├── functions.php         # 主题功能、自定义器和资源加载
+    ├── index.php             # 首页模板
+    ├── header.php            # 头部模板
+    ├── footer.php            # 页脚模板
+    ├── single.php            # 单篇文章模板
+    ├── page.php              # 页面模板
+    ├── archive.php           # 归档/分类模板
+    ├── search.php            # 搜索结果模板
+    ├── searchform.php        # 搜索表单
+    ├── comments.php          # 评论模板
+    ├── 404.php               # 404 页面
+    ├── assets/
+    │   └── js/
+    │       └── main.js       # JavaScript 交互
+    └── inc/
+        └── template-tags.php # 模板标签函数
 ```
 
 ## 页脚布局
@@ -166,6 +186,12 @@ beihai-theme/
 - 支持高DPI/Retina显示屏
 
 ## 更新日志
+
+### 1.4.1
+
+- 同步主题版本号和仓库文档
+- 补充主题包说明、许可证和基础忽略规则
+- 保持 `beihai-theme` 可直接作为 WordPress 主题安装
 
 ### 1.4.0
 
