@@ -21,8 +21,8 @@ Tags: blog, modern, light, minimalist, responsive, dark-mode
     --beihai-sky: #5B9CB5;
     --beihai-warm: #E8A04C;
     --beihai-ink: #2D2A26;
-    --beihai-paper: #FAF7F4;
-    --beihai-paper-2: #F3EFEB;
+    --beihai-paper: #faf7f4;
+    --beihai-paper-2: #f3efeb;
     --beihai-night: #13121F;
     --beihai-night-2: #1C1B2A;
     --beihai-night-3: #242336;
@@ -30,8 +30,8 @@ Tags: blog, modern, light, minimalist, responsive, dark-mode
     /* Semantic tokens */
     --bg-base: var(--beihai-paper);
     --bg-muted: var(--beihai-paper-2);
-    --bg-surface: rgba(255, 252, 250, 0.88);
-    --bg-glass: rgba(255, 252, 250, 0.72);
+    --bg-surface: rgba(250, 247, 244, 0.88);
+    --bg-glass: rgba(250, 247, 244, 0.72);
     --bg-hover: rgba(160, 139, 184, 0.06);
     --text-primary: var(--beihai-ink);
     --text-secondary: #6B6560;
@@ -969,6 +969,7 @@ html[data-theme="dark"] .hero-banner::before {
     left: 0;
     right: 0;
     bottom: 0;
+    background-color: var(--bg-base);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -983,7 +984,7 @@ html[data-theme="dark"] .hero-banner::before {
     pointer-events: none;
     background: radial-gradient(
         ellipse 60% 50% at 25% 40%,
-        rgba(201, 107, 122, 0.12),
+        rgba(160, 139, 184, 0.08),
         transparent 70%
     );
 }
@@ -1008,8 +1009,8 @@ html[data-theme="dark"] .hero-banner::before {
         linear-gradient(
             180deg,
             transparent 55%,
-            rgba(201, 107, 122, 0.06) 75%,
-            rgba(160, 139, 184, 0.04) 88%,
+            rgba(160, 139, 184, 0.04) 75%,
+            rgba(91, 156, 181, 0.03) 88%,
             transparent 100%
         ),
         linear-gradient(
