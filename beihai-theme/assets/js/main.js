@@ -17,6 +17,7 @@
         initAuthorFloatWidget();
         initThemeToggle();
         initSmoothScroll();
+        initHeroParallax();
     });
 
     /**
@@ -283,6 +284,44 @@
                 applyTheme(isDarkMode);
             }
         });
+    }
+
+    /**
+     * Subtle hero background parallax
+     */
+    function initHeroParallax() {
+        const heroBackground = document.querySelector('.hero-background');
+        if (!heroBackground) return;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion || window.innerWidth <= 768) return;
+
+        const parallaxFactor = 0.12;
+        let ticking = false;
+
+        function updateParallax() {
+            const heroBanner = heroBackground.closest('.hero-banner');
+            if (!heroBanner) return;
+
+            const rect = heroBanner.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top > window.innerHeight) {
+                ticking = false;
+                return;
+            }
+
+            heroBackground.style.transform = 'translateY(' + (window.pageYOffset * parallaxFactor) + 'px)';
+            ticking = false;
+        }
+
+        function onScroll() {
+            if (!ticking) {
+                ticking = true;
+                window.requestAnimationFrame(updateParallax);
+            }
+        }
+
+        updateParallax();
+        window.addEventListener('scroll', onScroll, { passive: true });
     }
 
     /**

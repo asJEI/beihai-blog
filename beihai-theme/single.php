@@ -49,7 +49,7 @@ get_header();
                 </div>
             </header>
 
-            <div class="entry-content">
+            <div class="entry-content prose">
                 <?php
                 the_content();
 

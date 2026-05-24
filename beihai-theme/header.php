@@ -102,10 +102,11 @@
 <?php if (is_front_page() || is_home()) : ?>
     <?php
     $hero_bg = get_theme_mod('hero_background_image', '');
-    $hero_title = get_theme_mod('hero_title', __('欢迎来到北海博客', 'beihai-blog'));
-    $hero_desc = get_theme_mod('hero_description', __('记录生活，分享思考，探索技术的无限可能', 'beihai-blog'));
+    $hero_title = get_theme_mod('hero_title', __('北海在这里', 'beihai-blog'));
+    $hero_desc = get_theme_mod('hero_description', __('写代码、记生活，存一些暂时说不完的话。', 'beihai-blog'));
     $show_greeting = get_theme_mod('show_greeting', true);
     $greeting = beihai_get_greeting();
+    $hero_author_name = get_theme_mod('author_name', get_bloginfo('name'));
     ?>
     
     <section class="hero-banner">
@@ -120,7 +121,12 @@
             <?php endif; ?>
             
             <h2 class="hero-title"><?php echo esc_html($hero_title); ?></h2>
+            <p class="hero-byline"><?php printf(esc_html__('%s 的数字空间', 'beihai-blog'), esc_html($hero_author_name)); ?></p>
             <p class="hero-description"><?php echo esc_html($hero_desc); ?></p>
+            <a href="#primary" class="hero-enter">
+                <?php esc_html_e('看看最近写了什么', 'beihai-blog'); ?>
+                <span class="hero-enter-icon" aria-hidden="true">↓</span>
+            </a>
         </div>
     </section>
 <?php endif; ?>
