@@ -59,7 +59,27 @@ Tags: blog, modern, light, minimalist, responsive, dark-mode
     --radius-xl: 16px;
     --radius-full: 9999px;
     --transition: all 0.3s ease;
+    --transition-fast: 0.15s ease;
+    --transition-micro: 0.2s ease;
     --header-height: 64px;
+
+    /* Typography */
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-display: "ZCOOL QingKe HuangYou", var(--font-body);
+    --font-signature: "STKaiti", "KaiTi", "楷体", serif;
+    --text-base: 1rem;
+    --text-sm: 0.9375rem;
+    --text-lg: 1.0625rem;
+    --leading-body: 1.75;
+    --leading-prose: 1.85;
+    --leading-tight: 1.35;
+    --measure-prose: 42rem;
+    --measure-content: 48rem;
+    --space-paragraph: 1.35em;
+    --space-block: 2rem;
+    --space-section: 2.75rem;
+    --tracking-tight: -0.01em;
+    --tracking-normal: 0;
 }
 
 /* ================================
@@ -117,14 +137,19 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
     color: var(--text-primary);
     background-color: var(--bg-base);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.7s ease, color 0.7s ease;
+}
+
+html[data-theme="dark"] body {
+    background: linear-gradient(180deg, var(--beihai-night) 0%, #16151E 100%);
+    background-attachment: fixed;
 }
 
 body.home,
@@ -237,8 +262,10 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
 }
 
 .site-title {
+    font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 700;
+    letter-spacing: var(--tracking-normal);
     color: var(--text-primary);
 }
 
@@ -358,12 +385,16 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     border: none;
     border-radius: var(--radius-full);
     cursor: pointer;
-    transition: var(--transition);
+    transition: opacity var(--transition-micro), background var(--transition-micro);
 }
 
 .search-submit:hover {
     background: var(--primary-hover);
-    transform: scale(1.05);
+    opacity: 0.92;
+}
+
+.search-submit:active {
+    opacity: 0.85;
 }
 
 /* 移动端搜索按钮 */
@@ -436,11 +467,16 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     font-size: 0.9375rem;
     font-weight: 500;
     cursor: pointer;
-    transition: var(--transition);
+    transition: opacity var(--transition-micro), background var(--transition-micro);
 }
 
 .mobile-search-submit:hover {
     background: var(--primary-hover);
+    opacity: 0.92;
+}
+
+.mobile-search-submit:active {
+    opacity: 0.85;
 }
 
 .mobile-search-close {
@@ -687,8 +723,10 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
 }
 
 .signature-text {
+    font-family: var(--font-signature);
     font-size: 0.9375rem;
-    font-style: italic;
+    font-style: normal;
+    letter-spacing: 0.04em;
     color: var(--text-secondary);
     line-height: 1.7;
     position: relative;
@@ -883,6 +921,19 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     overflow: hidden;
 }
 
+html[data-theme="dark"] .hero-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image:
+        radial-gradient(1px 1px at 22% 28%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1px 1px at 78% 18%, rgba(255, 255, 255, 0.35), transparent),
+        radial-gradient(1px 1px at 55% 72%, rgba(255, 255, 255, 0.3), transparent);
+}
+
 .hero-background {
     position: absolute;
     top: 0;
@@ -952,6 +1003,17 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     max-width: 800px;
 }
 
+@keyframes fadeUpSoft {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .hero-greeting {
     display: inline-flex;
     align-items: center;
@@ -966,6 +1028,8 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     -webkit-backdrop-filter: blur(8px);
     border-radius: 50px;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeUpSoft 0.45s ease-out both;
+    animation-delay: 0.12s;
 }
 
 .greeting--morning {
@@ -985,18 +1049,34 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
 }
 
 .hero-title {
+    font-family: var(--font-display);
     font-size: clamp(1.75rem, 5vw, 3rem);
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 16px;
     line-height: 1.2;
+    letter-spacing: var(--tracking-normal);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeUpSoft 0.5s ease-out both;
+    animation-delay: 0.22s;
 }
 
 .hero-description {
     font-size: clamp(1rem, 2.5vw, 1.25rem);
     color: rgba(255, 255, 255, 0.85);
-    line-height: 1.6;
+    line-height: var(--leading-body);
+    animation: fadeUpSoft 0.5s ease-out both;
+    animation-delay: 0.32s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-greeting,
+    .hero-title,
+    .hero-description {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* ================================
@@ -1038,7 +1118,7 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
    ================================ */
 .post-list {
     display: grid;
-    gap: 32px;
+    gap: 40px;
 }
 
 /* 文章卡片 - 磨砂玻璃效果 */
@@ -1061,15 +1141,15 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
 
 .post-card:hover {
     background: var(--bg-surface);
-    box-shadow: var(--shadow-md), var(--shadow-accent);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
     border-color: var(--border-emphasis);
 }
 
 [data-theme="dark"] .post-card:hover {
     background: var(--bg-surface);
     border-color: var(--border-emphasis);
-    box-shadow: var(--shadow-md), var(--shadow-accent);
+    box-shadow: var(--shadow-md);
 }
 
 .post-thumbnail {
@@ -1096,7 +1176,7 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     display: flex;
     align-items: center;
     gap: 16px;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     color: var(--text-light);
     margin-bottom: 12px;
 }
@@ -1110,7 +1190,8 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
 .post-title {
     font-size: clamp(1.125rem, 2.5vw, 1.375rem);
     font-weight: 600;
-    line-height: 1.4;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
     margin-bottom: 12px;
 }
 
@@ -1123,8 +1204,9 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
 }
 
 .post-excerpt {
+    max-width: var(--measure-content);
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: var(--leading-prose);
     margin-bottom: 16px;
 }
 
@@ -1132,13 +1214,14 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.9375rem;
+    font-size: var(--text-sm);
     font-weight: 500;
     color: var(--primary-color);
+    transition: transform var(--transition-micro), color var(--transition-micro);
 }
 
 .read-more:hover {
-    gap: 12px;
+    transform: translateX(2px);
 }
 
 /* ================================
@@ -1153,7 +1236,8 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
 .single-post .entry-title {
     font-size: clamp(1.5rem, 4vw, 2.25rem);
     font-weight: 700;
-    line-height: 1.3;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
     margin-bottom: 16px;
 }
 
@@ -1161,25 +1245,71 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    font-size: 0.9375rem;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+/* Shared prose rhythm for articles and pages */
+.entry-content {
+    max-width: var(--measure-prose);
+    margin-inline: auto;
+    font-size: var(--text-lg);
+    line-height: var(--leading-prose);
+    color: var(--text-primary);
+}
+
+.entry-content p {
+    margin-bottom: var(--space-paragraph);
+}
+
+.entry-content h2,
+.entry-content h3,
+.entry-content h4 {
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+    font-weight: 600;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+}
+
+.entry-content h2 {
+    font-size: clamp(1.375rem, 3vw, 1.75rem);
+}
+
+.entry-content h3 {
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+}
+
+.entry-content img {
+    border-radius: var(--radius-md);
+    margin: var(--space-block) 0;
+}
+
+.entry-content blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 20px;
+    margin: var(--space-block) 0;
+    font-family: var(--font-signature);
+    font-style: normal;
+    letter-spacing: 0.04em;
     color: var(--text-secondary);
 }
 
 .single-post .entry-content {
-    font-size: 1.0625rem;
-    line-height: 1.8;
+    font-size: var(--text-lg);
+    line-height: var(--leading-prose);
     color: var(--text-primary);
 }
 
 .single-post .entry-content p {
-    margin-bottom: 1.5em;
+    margin-bottom: var(--space-paragraph);
 }
 
 .single-post .entry-content h2,
 .single-post .entry-content h3,
 .single-post .entry-content h4 {
-    margin-top: 1.5em;
-    margin-bottom: 0.75em;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
     font-weight: 600;
 }
 
@@ -1193,14 +1323,16 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
 
 .single-post .entry-content img {
     border-radius: var(--radius-md);
-    margin: 1.5em 0;
+    margin: var(--space-block) 0;
 }
 
 .single-post .entry-content blockquote {
     border-left: 4px solid var(--primary-color);
     padding-left: 20px;
-    margin: 1.5em 0;
-    font-style: italic;
+    margin: var(--space-block) 0;
+    font-family: var(--font-signature);
+    font-style: normal;
+    letter-spacing: 0.04em;
     color: var(--text-secondary);
 }
 
@@ -1296,17 +1428,40 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
 
 .pagination .current {
     color: #ffffff;
-    background: var(--accent-emotion);
+    background: var(--accent-primary);
 }
 
 /* ================================
    Footer
    ================================ */
 .site-footer {
-    background: var(--bg-white);
-    border-top: 1px solid var(--border-color);
+    position: relative;
+    background: var(--bg-muted);
+    border-top: 1px solid var(--border-subtle);
     padding: 48px 24px 24px;
     margin-top: 64px;
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: -32px;
+    left: 0;
+    right: 0;
+    height: 32px;
+    background-color: var(--bg-base);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,16 C480,32 960,0 1440,16 L1440,0 L0,0 Z' fill='white'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,16 C480,32 960,0 1440,16 L1440,0 L0,0 Z' fill='white'/%3E%3C/svg%3E");
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    pointer-events: none;
+}
+
+html[data-theme="dark"] .site-footer {
+    background: linear-gradient(180deg, var(--beihai-night-2) 0%, #14131C 100%);
+    border-top: 1px solid var(--border-subtle);
 }
 
 .footer-container {
@@ -2208,26 +2363,24 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     align-items: center;
     gap: 6px;
     padding: 12px 24px;
-    background: var(--accent-emotion);
+    background: var(--accent-primary);
     color: #ffffff;
     font-size: 0.9375rem;
     font-weight: 500;
     border: none;
     border-radius: var(--radius-full);
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-accent);
+    transition: opacity var(--transition-micro), background var(--transition-micro);
+    box-shadow: var(--shadow-sm);
 }
 
 .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(201, 107, 122, 0.25);
-    filter: brightness(1.05);
+    background: var(--accent-primary-hover);
+    opacity: 0.92;
 }
 
 .submit-btn:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-accent);
+    opacity: 0.88;
 }
 
 /* 评论表单说明文字 */
@@ -2545,11 +2698,11 @@ html[data-theme="dark"] .front-page .site-header.scrolled {
     }
 
     .submit-btn:hover {
-        transform: none;
+        opacity: 0.92;
     }
 
     .submit-btn:active {
-        transform: scale(0.96);
+        opacity: 0.88;
     }
 }
 

@@ -122,11 +122,18 @@ function beihai_get_greeting()
  */
 function beihai_enqueue_assets()
 {
+    wp_enqueue_style(
+        'beihai-display-font',
+        'https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap',
+        array(),
+        null
+    );
+
     // 主题样式
     wp_enqueue_style(
         'beihai-theme-style',
         get_stylesheet_uri(),
-        array(),
+        array('beihai-display-font'),
         BEIHAI_THEME_VERSION
     );
 
