@@ -3,7 +3,7 @@
 Beihai Blog 是一个简约现代的 WordPress 个人博客主题，适合直接复制到 WordPress 的 `wp-content/themes/` 目录中启用。
 
 - Theme Name: Beihai Blog
-- Version: 1.4.1
+- Version: 1.5.2
 - Text Domain: beihai-blog
 - License: GPL v2 or later
 
@@ -24,6 +24,10 @@ Beihai Blog 是一个简约现代的 WordPress 个人博客主题，适合直接
 - 现代评论区样式
 - 页脚归档、备案和站外链接区域
 - 响应式布局
+- GLightbox 图片灯箱效果
+- Prism.js 代码语法高亮
+- 友情链接页面模板
+- 网站地图页面模板
 
 ## 主题设置
 
@@ -57,11 +61,23 @@ beihai-theme/
 ├── searchform.php
 ├── comments.php
 ├── 404.php
+├── screenshot.png
 ├── assets/
-│   └── js/
-│       └── main.js
-└── inc/
-    └── template-tags.php
+│   ├── js/
+│   │   └── main.js
+│   └── vendor/
+│       ├── glightbox/
+│       │   ├── glightbox.min.css
+│       │   └── glightbox.min.js
+│       └── prism/
+│           ├── prism-core.min.js
+│           ├── prism-autoloader.min.js
+│           └── prism-beihai.css
+├── inc/
+│   └── template-tags.php
+└── page-templates/
+    ├── page-friends.php
+    └── page-sitemap.php
 ```
 
 ## 兼容性

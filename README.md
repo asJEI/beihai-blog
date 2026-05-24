@@ -3,7 +3,7 @@
 Beihai Blog 是一个简约现代的 WordPress 个人博客主题，包含固定导航栏、站内搜索、主题切换、作者信息悬浮框、时间问候语横幅和现代评论区样式。
 
 - 主题目录：`beihai-theme`
-- 当前版本：`1.4.1`
+- 当前版本：`1.5.2`
 - 效果预览：http://www.hokkai2005.online
 
 ## 特性
@@ -150,23 +150,27 @@ Beihai Blog 是一个简约现代的 WordPress 个人博客主题，包含固定
 ├── .gitignore                # Git 忽略规则
 └── beihai-theme/
     ├── README.md             # 主题包说明文档
-    ├── style.css             # 主题元信息和全站样式
+    ├── style.css             # 主题元信息和全站样式（~3000行）
     ├── functions.php         # 主题功能、自定义器和资源加载
-    ├── index.php             # 首页模板
-    ├── header.php            # 头部模板
-    ├── footer.php            # 页脚模板
+    ├── index.php             # 首页模板 - 文章列表
+    ├── header.php            # 头部模板 - 导航栏和横幅
+    ├── footer.php            # 页脚模板 - 三栏布局
     ├── single.php            # 单篇文章模板
-    ├── page.php              # 页面模板
-    ├── archive.php           # 归档/分类模板
+    ├── page.php              # 独立页面模板
+    ├── archive.php           # 归档/分类/标签模板
     ├── search.php            # 搜索结果模板
-    ├── searchform.php        # 搜索表单
-    ├── comments.php          # 评论模板
-    ├── 404.php               # 404 页面
+    ├── searchform.php        # 搜索表单组件
+    ├── comments.php          # 评论区模板
+    ├── 404.php               # 404错误页面
+    ├── screenshot.png        # 主题预览图
     ├── assets/
-    │   └── js/
-    │       └── main.js       # JavaScript 交互
+    │   ├── js/
+    │   │   └── main.js       # 主题交互逻辑（主题切换、悬浮框等）
+    │   └── vendor/
+    │       ├── glightbox/    # 图片灯箱效果
+    │       └── prism/        # 代码高亮库
     └── inc/
-        └── template-tags.php # 模板标签函数
+        └── template-tags.php # 自定义模板标签函数
 ```
 
 ## 页脚布局
@@ -185,7 +189,69 @@ Beihai Blog 是一个简约现代的 WordPress 个人博客主题，包含固定
 - 支持深色模式（跟随系统设置或手动切换）
 - 支持高DPI/Retina显示屏
 
+## 开发者指南
+
+### 自定义样式
+
+主题使用 CSS 变量系统，可在 `style.css` 中修改配色：
+
+```css
+:root {
+    /* 核心品牌色 */
+    --beihai-rose: #C96B7A;      /* 主色调 - 玫瑰红 */
+    --beihai-lilac: #A08BB8;     /* 辅助色 - 淡紫 */
+    --beihai-sky: #5B9CB5;       /* 强调色 - 天蓝 */
+    --beihai-warm: #E8A04C;      /* 暖色调 */
+}
+```
+
+### 添加自定义代码
+
+在 `functions.php` 末尾添加自定义功能：
+
+```php
+// 自定义代码示例
+add_action('wp_head', function() {
+    echo '<meta name="custom-meta" content="value">';
+});
+```
+
+### 修改主题切换动画
+
+编辑 `assets/js/main.js` 中的 `toggleTheme()` 函数可自定义切换效果。
+
+## 代码高亮支持
+
+主题内置 Prism.js 代码高亮，支持以下语言：
+
+- HTML / CSS / JavaScript
+- PHP / Python / SQL
+- Bash / JSON / Markdown
+
+在文章中插入代码块时，使用标准 Markdown 语法即可自动高亮：
+
+<pre>
+```javascript
+console.log('Hello World');
+```
+</pre>
+
+## 图片灯箱
+
+主题集成 GLightbox，文章中的图片点击后会以灯箱形式展示。无需额外配置，自动生效。
+
 ## 更新日志
+
+### 1.5.2
+
+- 更新仓库文档
+- 完善代码注释
+
+### 1.5.0
+
+- 集成 Prism.js 代码高亮
+- 集成 GLightbox 图片灯箱
+- 优化文章阅读体验
 
 ### 1.4.1
 
@@ -196,7 +262,7 @@ Beihai Blog 是一个简约现代的 WordPress 个人博客主题，包含固定
 ### 1.4.0
 
 - **修复手机端导航栏遮挡内容问题**
-  - 为所有页面主体内容添加顶部间距（`padding-top: calc(var(--header-height) + 间距)`）
+  - 为所有页面主体内容添加顶部间距
   - 优化各断点间距：48px（桌面）→ 32px（平板）→ 24px（手机）→ 16px（超小屏）
 
 ### 1.3.0
@@ -215,20 +281,14 @@ Beihai Blog 是一个简约现代的 WordPress 个人博客主题，包含固定
 - 新增完整的夜间模式配色方案
 - 优化移动端悬浮框位置
 - 重新设计页脚布局为三栏结构
-  - 左侧：文章归档菜单
-  - 中间：备案信息HTML区域（可自定义）
-  - 右侧：站外链接菜单 + 社交图标链接
 - 新增页脚自定义器设置
-  - 备案信息HTML输入
-  - GitHub/Twitter/微博/RSS链接设置
 
 ### 1.1.0
 
 - 新增顶部导航栏搜索功能（桌面端和移动端适配）
 - 新增作者信息悬浮框（圆角设计，可展开/收起）
-- 优化响应式设计，支持更多屏幕尺寸断点
+- 优化响应式设计
 - 添加移动端搜索面板
-- 优化字体大小和间距的响应式适配
 
 ### 1.0.0
 
@@ -236,3 +296,16 @@ Beihai Blog 是一个简约现代的 WordPress 个人博客主题，包含固定
 - 实现固定导航栏
 - 实现时间问候语横幅
 - 实现响应式设计
+
+## 许可证
+
+本项目采用 [GNU General Public License v2.0 或更高版本](LICENSE) 开源许可。
+
+## 致谢
+
+- [GLightbox](https://github.com/biati-digital/glightbox) - 轻量级图片灯箱库
+- [Prism.js](https://prismjs.com/) - 语法高亮库
+
+---
+
+**Beihai Blog** 主题持续更新中，如有问题或建议，欢迎提交 Issue 或 PR。
