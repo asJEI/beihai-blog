@@ -35,7 +35,7 @@ function beihai_theme_setup()
 
     // 自定义背景支持
     add_theme_support('custom-background', array(
-        'default-color' => 'f9fafb',
+        'default-color' => 'faf7f4',
         'default-image' => '',
     ));
 
@@ -99,17 +99,21 @@ function beihai_get_greeting()
     if ($hour >= 5 && $hour < 12) {
         $greeting = '上午好';
         $icon = '☀️';
+        $class = 'greeting--morning';
     } elseif ($hour >= 12 && $hour < 18) {
         $greeting = '下午好';
         $icon = '🌤️';
+        $class = 'greeting--afternoon';
     } else {
         $greeting = '晚上好';
         $icon = '🌙';
+        $class = 'greeting--night';
     }
     
     return array(
         'text' => $greeting,
         'icon' => $icon,
+        'class' => $class,
     );
 }
 

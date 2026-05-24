@@ -113,7 +113,7 @@
         
         <div class="hero-content">
             <?php if ($show_greeting) : ?>
-                <div class="hero-greeting">
+                <div class="hero-greeting <?php echo esc_attr($greeting['class']); ?>">
                     <span class="greeting-icon"><?php echo esc_html($greeting['icon']); ?></span>
                     <span class="greeting-text"><?php echo esc_html($greeting['text']); ?></span>
                 </div>
