@@ -1,10 +1,26 @@
-# Beihai Blog - WordPress 主题
+# Beihai Blog - WordPress 主题（已废弃）
 
-Beihai Blog 是一个简约现代的 WordPress 个人博客主题，包含固定导航栏、站内搜索、主题切换、作者信息悬浮框、时间问候语横幅和现代评论区样式。
+> **⚠️ 本项目已停止维护，不再接受更新。**
+>
+> 我的博客已于 2026 年 6 月从 WordPress 迁移至 [Astro](https://astro.build/) 框架重新搭建。站点地址保持不变，但技术栈、功能与视觉均已更新。
+>
+> | 项目 | 说明 |
+> |------|------|
+> | **当前博客** | [https://www.hokkai2005.online/](https://www.hokkai2005.online/) |
+> | **本仓库** | WordPress 主题 `beihai-theme` 的历史存档（最终版本 `1.5.2`） |
+> | **维护状态** | 已废弃，仅作参考与备份保留 |
+
+如需了解当前博客，请直接访问线上站点。以下内容仅记录本 WordPress 主题的历史信息。
+
+---
+
+## 关于本仓库
+
+Beihai Blog 曾是一个简约现代的 WordPress 个人博客主题，包含固定导航栏、站内搜索、主题切换、作者信息悬浮框、时间问候语横幅和现代评论区样式。
 
 - 主题目录：`beihai-theme`
-- 当前版本：`1.5.2`
-- 效果预览：http://www.hokkai2005.online
+- 最终版本：`1.5.2`
+- 历史预览：本主题曾用于 [https://www.hokkai2005.online/](https://www.hokkai2005.online/)（现已迁移至 Astro）
 
 ## 特性
 
@@ -50,6 +66,8 @@ Beihai Blog 是一个简约现代的 WordPress 个人博客主题，包含固定
 ## 仓库说明
 
 本仓库只包含 WordPress 主题源码，不包含完整 WordPress 站点、数据库、插件或构建系统。`beihai-theme` 目录需要保持为可直接安装的主题包。
+
+> 注意：主题仍可自行安装使用，但作者不再提供维护、修复或功能更新。
 
 ## 安装
 
@@ -242,10 +260,11 @@ console.log('Hello World');
 
 ## 更新日志
 
-### 1.5.2
+### 1.5.2（最终版本）
 
 - 更新仓库文档
 - 完善代码注释
+- 博客迁移至 Astro，本主题停止维护
 
 ### 1.5.0
 
@@ -308,4 +327,4 @@ console.log('Hello World');
 
 ---
 
-**Beihai Blog** 主题持续更新中，如有问题或建议，欢迎提交 Issue 或 PR。
+**Beihai Blog** WordPress 主题已归档。当前博客请访问 [https://www.hokkai2005.online/](https://www.hokkai2005.online/)。
